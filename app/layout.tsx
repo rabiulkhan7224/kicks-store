@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/home/navbar";
 import { Footer } from "@/components/home/Footer";
 import { Providers } from "@/components/Providers";
+import { Toaster } from "sonner";
 
 const rubik = Rubik({
   variable: "--font-rubik",
@@ -34,6 +35,7 @@ export default function RootLayout({
         <Navbar/>
         {children}
         <Footer/>
+        <Toaster position="top-right" richColors />
         </Providers>
       </body>
     </html>

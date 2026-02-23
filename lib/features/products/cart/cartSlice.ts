@@ -1,64 +1,76 @@
-import { Product } from '@/lib/types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface CartItem {
+interface CartItem {
   id: number;
   title: string;
   price: number;
+  image: string;
+  size: number;
   quantity: number;
-  image: string; // take first image or main one
 }
 
 interface CartState {
   items: CartItem[];
-  totalQuantity: number;
-  totalAmount: number;
+  wishlist: number[];
 }
 
 const initialState: CartState = {
   items: [],
-  totalQuantity: 0,
-  totalAmount: 0,
+  wishlist: [],
 };
 
 const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState,
   reducers: {
-    addToCart(state, action: PayloadAction<Product>) {
-      const product = action.payload;
-      const existingItem = state.items.find((item) => item.id === product.id);
+    addToCart: (state, action: PayloadAction<CartItem>) => {
+      // FIX: Match by BOTH ID and Size so different sizes are treated as unique items
+      const existing = state.items.find(
+        (item) => 
+          item.id === action.payload.id && 
+          item.size === action.payload.size
+      );
 
-      if (existingItem) {
-        existingItem.quantity += 1;
+      if (existing) {
+        existing.quantity += action.payload.quantity;
       } else {
-        state.items.push({
-          id: product.id,
-          title: product.title,
-          price: product.price,
-          quantity: 1,
-          image: product.images[0] || 'https://placehold.co/400', // fallback
-        });
-      }
-
-      state.totalQuantity += 1;
-      state.totalAmount += product.price;
-    },
-
-    removeFromCart(state, action: PayloadAction<number>) {
-      const id = action.payload;
-      const existingItem = state.items.find((item) => item.id === id);
-
-      if (existingItem) {
-        state.totalQuantity -= existingItem.quantity;
-        state.totalAmount -= existingItem.price * existingItem.quantity;
-        state.items = state.items.filter((item) => item.id !== id);
+        state.items.push(action.payload);
       }
     },
 
-    // Optional: clearCart, decreaseQuantity, etc.
+    removeFromCart: (
+      state,
+      action: PayloadAction<{ id: number; size: number }>,
+    ) => {
+      state.items = state.items.filter(
+        (item) =>
+          !(item.id === action.payload.id && item.size === action.payload.size)
+      );
+    },
+
+    updateQuantity: (
+      state,
+      action: PayloadAction<{ id: number; size: number; quantity: number }>,
+    ) => {
+      const item = state.items.find(
+        (i) => i.id === action.payload.id && i.size === action.payload.size
+      );
+      if (item) {
+        // Ensure quantity doesn't drop below 1
+        item.quantity = Math.max(1, action.payload.quantity);
+      }
+    },
+
+    toggleWishlist: (state, action: PayloadAction<number>) => {
+      const isItemInWishlist = state.wishlist.includes(action.payload);
+      if (isItemInWishlist) {
+        state.wishlist = state.wishlist.filter((id) => id !== action.payload);
+      } else {
+        state.wishlist.push(action.payload);
+      }
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, toggleWishlist, removeFromCart, updateQuantity } = cartSlice.actions;
 export default cartSlice.reducer;

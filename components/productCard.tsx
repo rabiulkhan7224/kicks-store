@@ -7,7 +7,8 @@ interface ProductProp {
   product: Product;
 }
 
-const   ProductCard = ({ product }: ProductProp) => {
+const ProductCard = ({ product }: ProductProp) => {
+  console.log(product)
   return (
     <Link href={`/products/${product.id}`}>
       <div key={product.id} className="group cursor-pointer">

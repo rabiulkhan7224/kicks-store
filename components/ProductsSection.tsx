@@ -3,7 +3,6 @@ import { useGetProductsQuery } from "@/lib/features/products/productsApi";
 import ProductCard from "./productCard";
 import { Button } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
-import { Product } from "@/lib/types";
 
 
 const ProductsSection = () => {

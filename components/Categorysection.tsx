@@ -1,4 +1,4 @@
-import * as React from "react"
+"use client"
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 import {
   Carousel,
@@ -8,32 +8,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
+import { useGetCategoriesQuery } from "@/lib/features/products/productsApi";
+import Link from "next/link";
 
-const CATEGORIES = [
-  {
-    title: "Lifestyle Shoes",
-    image: "/products2.png", 
-    href: "#",
-  },
-  {
-    title: "Basketball Shoes",
-    image: "/products1.png", 
-    href: "#",
-  },
-  {
-    title: " Shoes",
-    image: "/products1.png", 
-    href: "#",
-  },
-  {
-    title: "Basketball",
-    image: "/products1.png", 
-    href: "#",
-  },
-  // Add more items to see the carousel in action
-]
 
 export function CategorySection() {
+  const {data:CATEGORIES,isLoading,isError}= useGetCategoriesQuery();
+console.log(CATEGORIES)
   return (
     <div className="w-full bg-[#1a1a1a] p-6 md:p-10">
       <Carousel
@@ -59,15 +40,15 @@ export function CategorySection() {
         {/* Carousel Content */}
         <div className="bg-white rounded-tl-[40px] md:rounded-tl-[60px] p-4">
         <CarouselContent className="-ml-4 ">
-          {CATEGORIES.map((category, index) => (
-            <CarouselItem key={index} className="pl-4 basis-full md:basis-1/2">
+          {CATEGORIES?.map((category) => (
+            <CarouselItem key={category.id} className="pl-4 basis-full md:basis-1/2">
               <Card className="border-none overflow-hidden bg-[#eceef0]">
                 <CardContent className="p-0 flex flex-col min-h-[450px] md:min-h-[500px]">
                   {/* Image Container */}
                   <div className="flex-1 flex items-center justify-center p-8">
                     <img
                       src={category.image}
-                      alt={category.title}
+                      alt={category.name}
                       className="max-w-full h-auto object-contain transition-transform duration-300 hover:scale-105"
                     />
                   </div>
@@ -75,16 +56,14 @@ export function CategorySection() {
                   {/* Footer Text & Action */}
                   <div className="p-8 md:p-10 flex justify-between items-end">
                     <h3 className="text-2xl md:text-4xl font-bold text-zinc-900 leading-tight max-w-[200px]">
-                      {category.title.split(' ').map((word, i) => (
-                        <span key={i} className="block">{word}</span>
-                      ))}
+                      {category.name}
                     </h3>
-                    <a 
-                      href={category.href}
+                    <Link 
+                      href={`/categories/${category.id}`}
                       className="bg-zinc-900 text-white p-3 rounded-lg hover:bg-zinc-700 transition-colors"
                     >
                       <ArrowUpRight className="h-6 w-6" />
-                    </a>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
