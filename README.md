@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+# 👟 Kicks – Premium Sneaker Store
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Kicks is a high-performance e-commerce platform built for sneaker enthusiasts. It features a modern, responsive design with dynamic data fetching, global state management, and an intuitive user experience from product discovery to checkout.
+
+**🚀 [Live Demo**](https://kicks-store-eosin.vercel.app/)
+
+---
+
+## 🛠️ Tech Stack
+
+* **Framework:** [Next.js 16+](https://nextjs.org/) (App Router)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+* **UI Components:** [shadcn/ui](https://ui.shadcn.com/)
+* **State Management:** [Redux Toolkit](https://redux-toolkit.js.org/)
+* **Data Fetching:** [RTK Query](https://redux-toolkit.js.org/rtk-query/overview) (Fetching from Platzi Fake Store API)
+* **Icons:** [Lucide React](https://lucide.dev/)
+* **Animations:** [Embla Carousel](https://www.embla-carousel.com/)
+
+---
+
+## ✨ Features
+
+### 1. Dynamic Product Exploration
+
+* **Server-Side Rendering:** Optimized SEO and initial load speeds.
+* **RTK Query Integration:** Real-time data fetching and caching for products and categories.
+* **Responsive Grid:** Adaptive layouts that switch between 4-column grids (Desktop) and interactive carousels (Mobile).
+
+### 2. Advanced Shopping Experience
+
+* **Size-Aware Cart:** Add the same sneaker in different sizes as unique items.
+* **Persistent Wishlist:** Toggle favorites across the app using a custom `useWishlist` hook.
+* **Real-time Totals:** Automatic calculation of subtotal, delivery, and taxes.
+
+### 3. Interactive UI
+
+* **Synced Galleries:** Mobile thumbnails that control the main product view.
+* **Cart Drawer/Page:** Seamless management of quantities and removals.
+* **Responsive Design:** Pixel-perfect execution for mobile, tablet, and desktop.
+
+---
+
+## 📂 Project Structure
+
+```text
+├── src
+│   ├── app            # Next.js App Router (Pages & Layouts)
+│   ├── components     # Reusable UI (Button, Carousel, ProductCards)
+│   ├── hooks          # Custom hooks (useCart, useWishlist)
+│   ├── lib            # Global state & API logic
+│   │   ├── features   # Redux Slices (cart, wishlist)
+│   │   └── store.ts   # Redux Store configuration
+│   └── types          # TypeScript interfaces
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Clone the repository:**
+```bash
+git clone https://github.com/rabiulkhan7224/kicks-store.git
 
-## Learn More
+```
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies:**
+```bash
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Run the development server:**
+```bash
+npm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+
+
+4. **Open the app:**
+Visit [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) to see the result.
+
+---
+
+## 🧪 API Integration
+
+This project uses the **Platzi Fake Store API** for demonstration purposes.
+
+* **Base URL:** `https://api.escuelajs.co/api/v1/`
+* **Endpoints:** `/products`, `/products/:id`, `/categories`
+
+---
+
+
+
