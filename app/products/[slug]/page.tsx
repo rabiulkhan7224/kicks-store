@@ -8,6 +8,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel"
+import { SimilarProducts } from "@/components/SimilarProducts"
 
 const PRODUCT = {
   name: "ADIDAS 4DFWD X PARLEY RUNNING SHOES",
@@ -22,6 +23,7 @@ export  default function ProductDetails() {
   const [selectedSize, setSelectedSize] = React.useState(38)
 
   return (
+    <div className="">
     <div className="max-w-7xl mx-auto p-4 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-10 bg-[#e7e7e3]">
       
       {/* LEFT: Image Gallery */}
@@ -129,6 +131,8 @@ export  default function ProductDetails() {
           </ul>
         </div>
       </div>
+    </div>
+    <SimilarProducts/>
     </div>
   )
 }
