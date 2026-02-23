@@ -1,41 +1,62 @@
+'use client';
+import { useGetProductsQuery } from "@/lib/features/products/productsApi";
 import ProductCard from "./productCard";
 import { Button } from "./ui/button";
+import { Skeleton } from "./ui/skeleton";
+import { Product } from "@/lib/types";
 
 
 const ProductsSection = () => {
+const { data: products , isLoading,isError } = useGetProductsQuery({ limit: 12 });
+  
+  if (isLoading) {
+    return (
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-16">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="space-y-4">
+            <Skeleton className="aspect-square rounded-[32px] bg-card" />
+            <Skeleton className="h-6 w-3/4" />
+            <Skeleton className="h-10 w-full rounded-xl" />
+          </div>
+        ))}
+      </div>
+    );
+  }
 
-    const products = [
-        {
-          id: 1,
-            title: "Nike Air Max 270",
-            slug: "nike-air-max-270",
-            price: 150,
-            description: "Experience the ultimate comfort and style with Nike Air Max 270, featuring a large Air unit for cushioning and a sleek design.",
-            category: {
-              id: 1,
-              name: "Sneakers",
-                image: "/categories/sneakers.png",
-                slug: "sneakers"
-            },
-            images: ["/products1.png"]
+  // Error State
+  if (isError) {
+    return (
+      <div className="container mx-auto py-20 text-center">
+        <p className="text-destructive font-bold">
+          Failed to load new arrivals. Please try again.
+        </p>
+      </div>
+    );
+  }
+  if (isLoading) {
+    return (
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-16">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="space-y-4">
+            <Skeleton className="aspect-square rounded-[32px] bg-card" />
+            <Skeleton className="h-6 w-3/4" />
+            <Skeleton className="h-10 w-full rounded-xl" />
+          </div>
+        ))}
+      </div>
+    );
+  }
 
-        },
-        {
-          id: 2,
-            title: "ADIDAS 4DFWD X PARLEY RUNNING SHOES",
-            slug: "adidas-4dfwd-x-parley-running-shoes",
-            price: 150,
-            description: "ADIDAS 4DFWD X PARLEY RUNNING SHOES",
-            category: {
-              id: 1,
-              name: "Sneakers",
-                image: "/categories/sneakers.png",
-                slug: "sneakers"
-            },
-            images: ["/products2.png"]
-
-        },
-    ]
+  // Error State
+  if (isError) {
+    return (
+      <div className="container mx-auto py-20 text-center">
+        <p className="text-destructive font-bold">
+          Failed to load new arrivals. Please try again.
+        </p>
+      </div>
+    );
+  }
     return (
          <section className="container mx-auto max-w-7xl px-4 py-8 md:py-16">
       <div className="flex justify-between items-end mb-10">
@@ -52,7 +73,7 @@ const ProductsSection = () => {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {products?.slice(0, 4).map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product}/>
         ))}
       </div>
     </section>
